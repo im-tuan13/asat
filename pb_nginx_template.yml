@@ -1,0 +1,21 @@
+---
+- hosts: webserver
+  become: yes
+  vars:
+    nginx_port: 8080
+  tasks:
+    - name: Pastikan Nginx terinstall
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Konfigurasi VirtualHost Nginx via Template Jinja2
+      template:
+        src: templates/nginx_vhost.j2
+        dest: /etc/nginx/sites-available/default
+
+    - name: Restart service Nginx
+      service:
+        name: nginx
+        state: restarted

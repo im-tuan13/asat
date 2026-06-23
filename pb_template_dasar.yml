@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    owner_name: 'Fadlan kelana'
+  tasks:
+    - name: Konfigurasi file MOTD menggunakan template dasar
+      template:
+        src: templates/motd.j2
+        dest: /etc/motd

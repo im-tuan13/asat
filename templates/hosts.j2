@@ -1,0 +1,5 @@
+127.0.0.1 localhost
+# Entri Server Otomatis dari Ansible List:
+{% for server in daftar_server %}
+{{ server.ip }} {{ server.name }}
+{% endfor %}

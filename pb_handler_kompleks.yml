@@ -1,0 +1,29 @@
+---
+- hosts: webserver
+  become: yes
+  tasks:
+    - name: Pastikan Apache2 terinstall di semua server
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+
+    - name: Modifikasi file konfigurasi ports utama Apache
+      lineinfile:
+        path: /etc/apache2/ports.conf
+        regexp: '^Listen '
+        line: 'Listen 8081'
+      notify:
+        - Cek Sintaks Konfigurasi Apache
+        - Restart Apache Web Server
+
+  handlers:
+    - name: Cek Sintaks Konfigurasi Apache
+      command: apache2ctl configtest
+      register: hasil_cek
+      failed_when: "'Syntax OK' not in hasil_cek.stderr and 'Syntax OK' not in hasil_cek.stdout"
+
+    - name: Restart Apache Web Server
+      service:
+        name: apache2
+        state: restarted

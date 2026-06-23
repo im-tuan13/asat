@@ -1,0 +1,8 @@
+SERVER ENVIRONMENT: {{ env_status | upper }}
+=========================================
+{% if env_status == 'production' %}
+PERINGATAN: Ini adalah server produksi! Berhati-hatilah dalam mengeksekusi perintah.
+{% else %}
+Info: Ini adalah server development/staging untuk keperluan uji coba.
+{% endif %}
+4. Berkas: pb_template_conditional.yml

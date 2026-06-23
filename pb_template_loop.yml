@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    daftar_server:
+      - { name: 'web-srv', ip: '192.168.56.70' }
+      - { name: 'db-srv', ip: '192.168.56.71' }
+      - { name: 'app-srv', ip: '192.168.56.72' }
+  tasks:
+    - name: Generate konfigurasi local hosts dengan loop
+      template:
+        src: templates/hosts.j2
+        dest: /tmp/hosts_custom

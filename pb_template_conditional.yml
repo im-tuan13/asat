@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    env_status: 'production'
+  tasks:
+    - name: Deploy banner dengan conditional env
+      template:
+        src: templates/environment_banner.j2
+        dest: /etc/environment_banner

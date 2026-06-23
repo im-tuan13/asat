@@ -1,0 +1,10 @@
+---
+- name: Buat user system untuk aplikasi
+  user:
+    name: "{{ app_user }}"
+    shell: /bin/false
+
+- name: Generate konfigurasi aplikasi dari internal template
+  template:
+    src: app_config.cfg.j2
+    dest: /etc/app_config.cfg

@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Ubah konfigurasi banner SSH lokal
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        line: "Banner /etc/issue"
+        state: present
+      notify: Restart SSH Daemon
+
+  handlers:
+    - name: Restart SSH Daemon
+      service:
+        name: sshd
+        state: restarted

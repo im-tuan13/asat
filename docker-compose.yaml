@@ -1,0 +1,27 @@
+services:
+  web:
+    image: fadlanxisija2
+    ports:
+      - "80:80"
+    networks:
+      - ujian_xi
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: ujian_sija
+    volumes:
+      - dbdata:/var/lib/mysql
+      - /home/fadlan/web-asat-10-sija-2/ujian_sija.sql:/docker-entrypoint-initdb.d/ujian_sija.sql
+    networks:
+      - ujian_xi
+
+volumes:
+  dbdata:
+
+networks:
+  ujian_xi:
+    driver: bridge
